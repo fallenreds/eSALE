@@ -101,6 +101,7 @@ p{
 }
 
 .searchbar{
+
     background-image: url("searchlogo.png");
     background-repeat: no-repeat;
     background-position: 8px;
@@ -118,21 +119,52 @@ p{
 .searchprice{
     border:none;
     outline: none;
-    width: 130px;
+    width: 65px;
     padding: 10px;
     background-color: white;
     border-radius: 5px;
 }
 
-.searchimage{
-    margin-top: 30px;
 
-    padding-top:10px;
-    padding-right: 10px;
-    padding-bottomt: 10px;
-    background-color: white;
-}
 
 .helper{
     display: flex;
+}
+
+.popular_thing{
+    color: black;
+    font-family: sans-serif;
+    font-size: 25px;
+    padding-top: 10px;
+    text-align: center;
+    padding-bottom: 25;
+    margin-top: 30px;
+    background: white;
+    height: 50px;
+}
+
+.postview{
+    justify-content: space-between;
+    color: black;
+    font-family: sans-serif;
+    font-size: 16px;
+    display: flex;
+    margin-top: 50px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.postdetail{
+    border-radius: 5px;
+    background-color: white;
+    padding: 30px 10px 10px 10px ;
+    display:flex;
+    flex-direction: column;
+
+}
+.imagepost{
+    height: 195px;
+    weight: 250px;
+}
+.litle-text{
+    font-size: 12px;
 }
