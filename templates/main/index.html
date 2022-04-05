@@ -5,10 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>Обявления:</h1>
     {% for posts in post_list %}
-        <h3><p>Название обьявления-{{ posts.title }}</p></h3>
-        <p>Категория обьявления -{{ posts.category__title }}</p>
+        <img src="{{ posts.image }}">
     {% endfor %}
 </body>
 </html>
