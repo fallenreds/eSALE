@@ -9,6 +9,6 @@ from .models import Post, Category
 class HomeView(View):
     def get(self, request):
         all_category = Category.objects.values('title','slug')
-        post_list = Post.objects.filter(id=1).values('title','image','cost')
+        post_list = Post.objects.all().order_by("-views")[:4]
         print(post_list)
-        return render(request, 'main/index.html', {'post_list': post_list, 'all_category':all_category})
+        return render(request, 'main/home.html', {'post_list': post_list, 'all_category':all_category})

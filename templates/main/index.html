@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +7,58 @@
 </head>
 <body>
     {% for posts in post_list %}
-        <img src="{{ posts.image }}">
+        <div class="postdetail">
+             <div>
+                <img class = "imagepost" src="{{ posts.image }}" alt="">
+            </div>
+            <div>
+                <p><span>Машнка хуинка такая крутая...</span></p>
+                <p class = "litle-text">2022-04-04 11:53:26</p>
+                <p><h3>6500</h3></p>
+            </div>
+        </div>
     {% endfor %}
 </body>
 </html>
+
+        <div class="postdetail">
+             <div>
+                <img class = "imagepost" src="{% static 'img/test.png' %}" alt="">
+            </div>
+            <div>
+                <p><span>Машнка хуинка такая крутая...</span></p>
+                <p class = "litle-text">2022-04-04 11:53:26</p>
+                <p><h3>6500</h3></p>
+            </div>
+        </div>
+        <div class="postdetail">
+             <div>
+                <img class="imagepost" src="{% static 'img/test2.png' %}" alt="">
+            </div>
+            <div>
+                <p><span>Машнка хуинка такая крутая...</span></p>
+                <p class = "litle-text">2022-04-04 11:53:26</p>
+                <p><h3>6500</h3></p>
+            </div>
+        </div>
+        <div class="postdetail">
+             <div>
+                <img class="imagepost" src="{% static 'img/test.png' %}" alt="">
+            </div>
+            <div>
+                <p><span>Машнка хуинка такая крутая...</span></p>
+                <p class = "litle-text">2022-04-04 11:53:26</p>
+                <p><h3>6500</h3></p>
+            </div>
+        </div>
+        <div class="postdetail">
+             <div>
+                <img class="imagepost" src="{% static 'img/test.png' %}" alt="">
+            </div>
+            <div>
+                <p><span>Машнка хуинка такая крутая...</span></p>
+                <p class = "litle-text">2022-04-04 11:53:26</p>
+                <p><h3>6500</h3></p>
+
+            </div>
+        </div>

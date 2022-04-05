@@ -46,47 +46,18 @@
         </div>
     </div>
     <div class="postview">
+        {% for posts in post_list%}
         <div class="postdetail">
              <div>
-                <img class = "imagepost" src="{% static 'img/test.png' %}" alt="">
+                <img class = "imagepost" src="{{ posts.image.url }}" alt="">
             </div>
             <div>
                 <p><span>Машнка хуинка такая крутая...</span></p>
-                <p class = "litle-text">2022-04-04 11:53:26</p>
-                <p><h3>6500</h3></p>
+                <p class = "litle-text">{{ posts.published_date}}</p>
+                <p><h3>{{ posts.cost }}</h3></p>
             </div>
         </div>
-        <div class="postdetail">
-             <div>
-                <img class="imagepost" src="{% static 'img/test2.png' %}" alt="">
-            </div>
-            <div>
-                <p><span>Машнка хуинка такая крутая...</span></p>
-                <p class = "litle-text">2022-04-04 11:53:26</p>
-                <p><h3>6500</h3></p>
-            </div>
-        </div>
-        <div class="postdetail">
-             <div>
-                <img class="imagepost" src="{% static 'img/test.png' %}" alt="">
-            </div>
-            <div>
-                <p><span>Машнка хуинка такая крутая...</span></p>
-                <p class = "litle-text">2022-04-04 11:53:26</p>
-                <p><h3>6500</h3></p>
-            </div>
-        </div>
-        <div class="postdetail">
-             <div>
-                <img class="imagepost" src="{% static 'img/test.png' %}" alt="">
-            </div>
-            <div>
-                <p><span>Машнка хуинка такая крутая...</span></p>
-                <p class = "litle-text">2022-04-04 11:53:26</p>
-                <p><h3>6500</h3></p>
-
-            </div>
-        </div>
+    {% endfor %}
     </div>
 </body>
 </html>
