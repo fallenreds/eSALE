@@ -1,0 +1,24 @@
+
+    <form method="post" type="submit">
+    {% csrf_token %}
+    <div class="full-search">
+        <div class="searching">
+            <div>
+                <select class="category" title='Категории' name="category">
+                    {% for category in all_category %}
+                        <option>{{ category.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="helper">
+                <input class='searchbar' type="search" placeholder="Что вы хотите найти?">
+                <input class='searchsubmit' type="submit" value="" >
+            </div>
+            <div>
+                <h6 class="price">Цена</h6>
+                <input class="searchprice" type="number" placeholder="От..." min="1">
+                <input class="searchprice" type="number" placeholder="До..." min="1">
+            </div>
+        </div>
+    </div>
+    </form>

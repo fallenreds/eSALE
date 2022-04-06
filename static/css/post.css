@@ -101,11 +101,7 @@ p{
 }
 
 .searchbar{
-
-    background-image: url("searchlogo.png");
-    background-repeat: no-repeat;
-    background-position: 8px;
-    background-size: 25px;
+    font-size: 15px;
     padding-left: 35px;
     outline: none;
     border:none;
@@ -113,7 +109,20 @@ p{
     width: 400px;
     height: 80%;
     background-color: white;
-    border-radius: 5px;
+    border-radius: 5px 0px 0px 5px;
+}
+.searchsubmit{
+    background-size: 25px;
+    background-repeat: no-repeat;
+    outline: none;
+    border:none;
+    margin-top: 25px;
+    background-image: url("searchlogo.png");
+    background-position: center;
+    height: 80%;
+    width: 60px;
+    border-radius: 0px 5px 5px 0px;
+    background-color: white;
 }
 
 .searchprice{
@@ -133,9 +142,9 @@ p{
 
 .popular_thing{
     color: black;
-    font-family: sans-serif;
+    font-family: Roboto, sans-serif;
     font-size: 25px;
-    padding-top: 10px;
+    padding-top: 8px;
     text-align: center;
     padding-bottom: 25px;
     margin-top: 30px;
