@@ -60,3 +60,6 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'Обьявление'
         verbose_name_plural = 'Обьявления'
+
+    def get_absolute_url(self):
+        return f'/post/{self.id}'

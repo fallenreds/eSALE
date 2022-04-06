@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/post.css' %}">
     <title>Сервис eSALE</title>
 </head>
 <body>
@@ -12,7 +12,7 @@
             <div class="container">
                 <div class="headerinner">
                     <div class="headerlogo">
-                        <a href=""><img src="{% static 'img/LOGO.png' %}" alt=""></a>
+                        <a href="/"><img src="{% static 'img/LOGO.png' %}" alt=""></a>
                     </div>
                     <nav class="nav">
                         <a class="nav__link" href="#">Профиль</a>
@@ -24,6 +24,7 @@
 
     {#  Панель поиска #}
     <form method="post" type="submit">
+    {% csrf_token %}
     <div class="full-search">
         <div class="searching">
             <div>
@@ -35,6 +36,7 @@
             </div>
             <div class="helper">
                 <input class='searchbar' type="search" placeholder="Что вы хотите найти?">
+                <input type="submit">
             </div>
             <div>
                 <h6 class="price">Цена</h6>
@@ -44,28 +46,23 @@
         </div>
     </div>
     </form>
-     <div class="popular_thing">
-         <h3>Популярные предложения:</h3>
+    <div class="popular_thing">
+         <h3>Детали обьявления:</h3>
      </div>
-
-    {#  Вывод постов #}
-    <div class="postview">
-        {% for posts in post_list%}
-            <a href="{{ posts.get_absolute_url }}">
-                <div class="postdetail">
-             <div>
-                <img src="{{ posts.image.url }}" alt="" height="195", width="250" >
-            </div>
-            <div>
-                <p class="maintext">{{ posts.title }}</p>
-                <p class = "litle-text">{{ posts.published_date}}</p>
-                <p><h3>{{ posts.cost }}</h3></p>
-            </div>
+    <div class="postdetail">
+        <img src="{{ post.image.url }}" alt="" height="300", width="350" >
+        <div class="postinfo">
+            <p><strong>{{ post.title }}</strong></p>
+            <p><span>{{ post.text }}</span></p>
+            <p><strong>{{ post.cost }} грн</strong></p>
+            <p class="smalltext"><strong>Просмотрено:</strong> {{ post.views }}</p>
+            <p class="smalltext"><strong>Дата публикации:</strong> {{ post.published_date }}</p>
         </div>
-            </a>
-    {% endfor %}
+        <div class="postinfo">
+            <p><strong>{{ user.first_name }}</strong></p>
+            <p><strong>{{ user.last_name }}</strong></p>
+            <p>{{ user.email }}</p>
+            <p class="smalltext"><strong>Зарегестрирован с </strong>{{ user.date_joined.date }}</p>
+        </div>
     </div>
-
-
 </body>
-</html>
