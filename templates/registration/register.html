@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/login_register.css' %}">
+    <title>Title</title>
+</head>
+<body>
+    {% block content %}
+        {% if form.errors %}
+            {{ form.errors.error }}
+        {% endif %}
+        <h1>Регестрация</h1>
+        <form action="{% url 'register' %}" method="post">
+        {{form}}
+        {% csrf_token %}
+        <button type="submit">submit</button>
+        </form>
+    {% endblock %}
+</body>
+</html>

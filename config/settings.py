@@ -133,3 +133,5 @@ STATIC_ROOT = os.path.join(VENV_PATH, 'static_root')
 
 SITE=1
 
+LOGIN_REDIRECT_URL ='/'
+LOGOUT_REDIRECT_URL ='/'
