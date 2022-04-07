@@ -17,8 +17,16 @@
                         <a href=""><img src="{% static 'img/LOGO.png' %}" alt=""></a>
                     </div>
                     <nav class="nav">
-                        <a class="nav__link" href="#">Профиль</a>
-                        <a class="nav__link" href="#">Подать обьявление</a>
+                        {% if user.is_authenticated %}
+                            <a class="nav__link" href="#">Профиль</a>
+                            <a class="nav__link" href="accounts/logout/">Выйти</a>
+                            <a class="nav__link" href="#">Подать обьявление</a>
+                            {% else %}
+                            <a class="nav__link" href="/accounts/login/">Войти</a>
+                            <a class="nav__link" href="accounts/signup/">Регестрация</a>
+                            <a class="nav__link" href="#">Подать обьявление</a>
+
+                        {% endif %}
                     </nav>
                 </div>
         </div>
