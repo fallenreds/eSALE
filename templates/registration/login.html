@@ -8,16 +8,19 @@
 </head>
 <body>
     {% block content %}
-        {% if form.errors %}
-            {{ form.errors.error }}
-        {% endif %}
-{#        {{ form.non_field_errors }}#}
-        <h1>Вход</h1>
-        <form action="{% url 'login' %}" method="post">
-        {{ form }}
-        {% csrf_token %}
-        <button type="submit">submit</button>
-        </form>
+        <div class="maindiv">
+            <h1>Вход</h1>
+            <strong>{{ error }}</strong>
+            <form action="{% url 'login' %}" method="post">
+                <p>{{ form.username }}</p>
+                <p>{{ form.password }}</p>
+                {% csrf_token %}
+                <button class="accept" type="submit">Войти</button>
+                <a href="{% url 'register' %}" class="accept" >Регистрация</a>
+
+
+            </form>
+        </div>
     {% endblock %}
 </body>
 </html>

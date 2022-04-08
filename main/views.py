@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template.context_processors import request
 from django.views import View
 from django.contrib.auth import login, authenticate
-from .forms import UserCreationForm, AuthenticationForm
+from .forms import UserCreationForm, MyAuthenticationForm
 from .models import Post, Category, MyUser
 from django.views.decorators.csrf import csrf_protect
 
@@ -27,33 +27,23 @@ class PostDetail(View):
 class LoginView(View):
     def get(self, request):
         form = {
-            'form': AuthenticationForm()
+            'form': MyAuthenticationForm()
         }
-        return render(request,'registration/login.html',{'form': AuthenticationForm()})
+        return render(request,'registration/login.html',{'form': MyAuthenticationForm()})
 
     def post(self, request):
-        form = AuthenticationForm(request.POST)
-        print(request.POST)
+        form = MyAuthenticationForm(request, request.POST)
         if form.is_valid():
-            print("ВСЕ ОК")
+            cd = form.cleaned_data
+            user = authenticate(username=cd['username'], password=cd['password'])
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return redirect('/')
         else:
-            print("НЕ  ОК", form.errors)
-        return redirect('/')
-        #     cd = form.cleaned_data
-        #     user = authenticate(username=cd['username'], password=cd['password'])
-        #     if user is not None:
-        #         print('valid')
-        #         if user.is_active:
-        #             login(request, user)
-        #             return HttpResponse('Authenticated successfully')
-        #         else:
-        #             return HttpResponse('Disabled account')
-        #     else:
-        #         return HttpResponse('Invalid login')
-        # else:
-        #     print("Тут ошибка",form.errors)
-        #     # form = AuthenticationForm()
-        #     return render(request, 'registration/login.html', {'form': form})
+            form = MyAuthenticationForm()
+            error = 'Форма не прошла валидацию'
+            return render(request, 'registration/login.html', {'form': form,'error': error})
 
 
 
@@ -71,6 +61,6 @@ class RegisterView(View):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('/login')
         else:
             return render(request, 'registration/register.html', {'form': form})

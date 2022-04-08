@@ -1,4 +1,31 @@
+.maindiv{
+    font-family: Arial;
+    text-align: center;
+    background-color: #e7e7e7;
+    margin: 50px 300px 50px 300px;
+    border-radius: 20px;
+    padding: 20px;
+
+
+}
 .inputarea{
     height: 30px;
+    width: 300px;
+
+    border:none;
+    outline: none;
+    border-radius: 5px;
+}
+.accept{
+    padding: 10px 20px 10px 20px;
+    font-size: 20px;
+    border:none;
+    outline: none;
+    border-radius: 5px;
     background-color: #0072c6;
+}
+
+a {
+    text-decoration:none;
+    color: black;
 }
