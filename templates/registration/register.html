@@ -12,7 +12,12 @@
             <h1>Регистрация</h1>
 {#            <strong>{{ error }}</strong>#}
             <form action="{% url 'register' %}" method="post">
-                {{ form }}
+                <p>{{ form.username }}</p>
+                <p>{{ form.first_name }}</p>
+                <p>{{ form.last_name }}</p>
+                <p>{{ form.password1 }}</p>
+                <p>{{ form.password2 }}</p>
+                <p>{{ form.email }}</p>
                 {% csrf_token %}
                 <button class="accept" type="submit">Регистрация</button>
                 <a href="{% url 'login' %}" class="accept" >Вход</a>

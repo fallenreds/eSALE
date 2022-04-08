@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template.context_processors import request
 from django.views import View
 from django.contrib.auth import login, authenticate
-from .forms import UserCreationForm, MyAuthenticationForm
+from .forms import MyUserCreationForm, MyAuthenticationForm
 from .models import Post, Category, MyUser
 from django.views.decorators.csrf import csrf_protect
 
@@ -52,13 +52,14 @@ class RegisterView(View):
 
     def get(self, request):
         form = {
-            'form': UserCreationForm()
+            'form': MyUserCreationForm()
         }
         # print(UserCreationForm())
         return render(request, 'registration/register.html', form)
 
     def post(self, request):
-        form = UserCreationForm(request.POST)
+        form = MyUserCreationForm(request.POST)
+        print(request.POST)
         if form.is_valid():
             form.save()
             return redirect('/login')

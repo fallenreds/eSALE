@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, forms, AuthenticationForm
 
-class UserCreationForm(UserCreationForm):
+class MyUserCreationForm(UserCreationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs= {'class': 'inputarea', 'placeholder':'Логин'}))
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs= {'class': 'inputarea', 'placeholder':'Пароль'}))
     password2 = forms.CharField(label='Повторите пароль', widget=forms.PasswordInput(attrs= {'class': 'inputarea','placeholder':'Повторите пароль'}))
@@ -12,6 +12,7 @@ class UserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         #переопределяем стандартного пользователя на нашего
         model = get_user_model()
+        fields = ["username", "password1", "first_name", "last_name", "email"]
 
 
 class MyAuthenticationForm(AuthenticationForm):
