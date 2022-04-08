@@ -1,8 +1,10 @@
 from django.urls import path
 from . import views
+from .forms import AuthenticationForm
 
 urlpatterns = [
     path('', views.HomeView.as_view(), name="home"),
     path('post/<int:slug>', views.PostDetail.as_view(), name="post"),
     path('register/', views.RegisterView.as_view(), name='register'),
+    path('login/', views.LoginView.as_view(), name='login'),
 ]

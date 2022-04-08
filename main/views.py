@@ -3,8 +3,9 @@ from django.http import HttpResponse
 from django.template.context_processors import request
 from django.views import View
 from django.contrib.auth import login, authenticate
-from .forms import UserCreationForm
+from .forms import UserCreationForm, AuthenticationForm
 from .models import Post, Category, MyUser
+from django.views.decorators.csrf import csrf_protect
 
 
 class HomeView(View):
@@ -20,6 +21,40 @@ class PostDetail(View):
         post = Post.objects.get(id=slug)
         user = MyUser.objects.get(id=post.author_id)
         return render(request, 'main/post.html', {'post': post, 'user': user, 'all_category': all_category})
+
+
+
+class LoginView(View):
+    def get(self, request):
+        form = {
+            'form': AuthenticationForm()
+        }
+        return render(request,'registration/login.html',{'form': AuthenticationForm()})
+
+    def post(self, request):
+        form = AuthenticationForm(request.POST)
+        print(request.POST)
+        if form.is_valid():
+            print("ВСЕ ОК")
+        else:
+            print("НЕ  ОК", form.errors)
+        return redirect('/')
+        #     cd = form.cleaned_data
+        #     user = authenticate(username=cd['username'], password=cd['password'])
+        #     if user is not None:
+        #         print('valid')
+        #         if user.is_active:
+        #             login(request, user)
+        #             return HttpResponse('Authenticated successfully')
+        #         else:
+        #             return HttpResponse('Disabled account')
+        #     else:
+        #         return HttpResponse('Invalid login')
+        # else:
+        #     print("Тут ошибка",form.errors)
+        #     # form = AuthenticationForm()
+        #     return render(request, 'registration/login.html', {'form': form})
+
 
 
 class RegisterView(View):
