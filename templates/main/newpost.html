@@ -10,7 +10,7 @@
     {% block content %}
         <div class="maindiv">
             <h1>Новое обьявление</h1>
-            <form action="{% url 'newpost' %}" method="post">
+            <form action="{% url 'newpost' %}" method="post" enctype="multipart/form-data">
                 <p>{{ form.title }}</p>
                 <p>{{ form.text }}</p>
                 <p>{{ form.image }}</p>

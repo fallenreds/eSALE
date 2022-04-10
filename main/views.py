@@ -7,6 +7,8 @@ from .forms import MyUserCreationForm, MyAuthenticationForm, NewPostForm
 from .models import Post, Category, MyUser
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
+from django.core.files.base import ContentFile
 
 
 class HomeView(View):
@@ -79,3 +81,12 @@ class CreatePostView(LoginRequiredMixin,View):
             'form': NewPostForm()
         }
         return render(request, 'main/newpost.html', form)
+
+    def post(self,request):
+        form = NewPostForm(request.POST,request.FILES)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.author = request.user
+            form.save()
+            return redirect('/')
+        return HttpResponse('Братан, все фигня')

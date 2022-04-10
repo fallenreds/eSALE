@@ -35,11 +35,9 @@ class NewPostForm(forms.ModelForm):
                             widget=forms.TextInput(attrs={'placeholder': 'Заголовок','class':"inputarea"}))
     text = forms.CharField(label='Описание',
                            widget=forms.Textarea(attrs={'placeholder': 'Описание', 'class':"descrip",'maxlength':'300'}))
-    image = forms.ImageField(label='Фото')
     cost = forms.FloatField(label='Цена',
                             widget=forms.NumberInput(attrs={'placeholder': 'Цена', 'min':'1','class':"inputarea"}))
     category = forms.ModelChoiceField(queryset=Category.objects.all(),widget=forms.Select(attrs={'class':"inputarea"}))
-
     class Meta():
         model = Post
-        fields = ('title', 'text', 'image', 'cost', 'category')
+        fields = ('title', 'text', 'image', 'cost', 'category','author','published_date')
