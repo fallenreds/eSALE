@@ -1,0 +1,139 @@
+{% load static %}
+
+body{
+margin: 0;
+font-size: 14px;
+color: #6c7279;
+background-color: #e7e7e7;
+    -webkit-font-smoothing: antialiased;
+}
+*,
+*:before,
+:after{
+    box-sizing: border-box;
+}
+
+h1,h2,h3,h4,h5,h6{
+    margin: 0;
+}
+p{
+    margin: 0 0 10px;
+}
+
+
+/Container/
+.container{
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 15px;
+}
+
+/HEADAER/
+
+
+.header{
+    width: 100%;
+    height: 85px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 35px 0;
+}
+
+.headerlogo{
+    margin-left: 40px;
+}
+
+.headerinner{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #505268;
+    font-size: 13px;
+    padding: 0px;
+    align-items: center;
+    background-color: #0072c6;
+}
+.nav{
+    display: flex;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: none;
+}
+
+.nav__link{
+    margin-right: 40px;
+    color: #0072c6;
+    opacity: 1;
+    padding: 10px 25px 10px 25px;
+    text-decoration: none;
+    background-color: white;
+    border-radius: 5px;
+}
+
+
+.userinfo {
+    font-weight: bolder;
+    font-family: Roboto, sans-serif;
+    padding: 15px;
+    color: black;
+    margin: 40px 40px 40px 40px;
+    background-color: white;
+    border-radius: 20px;
+    font-size: 18px;
+}
+
+
+
+img{
+    border-radius: 5px;
+}
+
+
+.postview{
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    color: black;
+    font-family: sans-serif;
+    font-size: 16px;
+    display: flex;
+    margin-top: 50px;
+    margin-left: 40px;
+    margin-right: 40px;
+
+
+}
+.postdetail{
+    max-width: 270px ;
+    border-radius: 5px;
+    background-color: white;
+    padding: 30px 10px 10px 10px ;
+    display:flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+    margin-right: 18px;
+    margin-left: 18px;
+}
+
+.postdetail > div >.maintext{
+    display: block;
+      width: 255px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+}
+.maintext {
+
+}
+
+.litle-text{
+    font-size: 12px;
+}
+
+a {
+    text-decoration:none;
+    color: black;
+}

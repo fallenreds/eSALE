@@ -11,11 +11,20 @@
 .inputarea{
     height: 30px;
     width: 300px;
-
+    resize: none;
     border:none;
     outline: none;
     border-radius: 5px;
 }
+.descrip{
+    height: 110px;
+    width: 390px;
+    resize: none;
+    border:none;
+    outline: none;
+    border-radius: 5px;
+}
+
 .accept{
     padding: 10px 20px 10px 20px;
     font-size: 20px;

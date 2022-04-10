@@ -1,0 +1,17 @@
+{% load static %}
+<div class="postview">
+        {% for posts in post%}
+            <a href="{{ posts.get_absolute_url }}">
+                <div class="postdetail">
+             <div>
+                <img src="{{ posts.image.url }}" alt="" height="195", width="250" >
+            </div>
+            <div>
+                <p class="maintext">{{ posts.title }}</p>
+                <p class = "litle-text">{{ posts.published_date}}</p>
+                <p><h3>{{ posts.cost }}</h3></p>
+            </div>
+        </div>
+            </a>
+    {% endfor %}
+    </div>

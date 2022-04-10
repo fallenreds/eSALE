@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/login_register.css' %}">
+    <title>Регистрация eSALE</title>
+</head>
+<body>
+    {% block content %}
+        <div class="maindiv">
+            <h1>Новое обьявление</h1>
+            <form action="{% url 'newpost' %}" method="post">
+                <p>{{ form.title }}</p>
+                <p>{{ form.text }}</p>
+                <p>{{ form.image }}</p>
+                <p>{{ form.cost }}</p>
+                <p>{{ form.category }}</p>
+                {% csrf_token %}
+                <button class="accept" type="submit">Создать</button>
+            </form>
+        </div>
+    {% endblock %}
+</body>
+</html>

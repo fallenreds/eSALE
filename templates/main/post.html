@@ -9,20 +9,7 @@
 </head>
 <body>
     {# Меню #}
-    <header class="header">
-            <div class="container">
-                <div class="headerinner">
-                    <div class="headerlogo">
-                        <a href="/"><img src="{% static 'img/LOGO.png' %}" alt=""></a>
-                    </div>
-                    <nav class="nav">
-                        <a class="nav__link" href="#">Профиль</a>
-                        <a class="nav__link" href="#">Подать обьявление</a>
-                    </nav>
-                </div>
-        </div>
-    </header>
-
+    {% header_block %}
     {#  Панель поиска #}
     {% search_block %}
     <div class="popular_thing">

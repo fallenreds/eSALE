@@ -1,0 +1,66 @@
+{% load static %}
+{% load main_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <title>Title</title>
+</head>
+<body>
+    {% header_block %}
+    <div class="userinfo">
+        <p>{{user.first_name}}</p>
+        <p>{{user.last_name}}</p>
+        <p>{{user.email}}</p>
+        <p>{{user.date_joined}}</p>
+    </div>
+    <center>
+        <div class="userinfo">
+        Избранное
+        </div>
+    </center>
+
+<div class="postview">
+        {% for posts in favorite_post%}
+            <a href="{{ posts.get_absolute_url }}">
+                <div class="postdetail">
+             <div>
+                <img src="{{ posts.image.url }}" alt="" height="195", width="250" >
+            </div>
+            <div>
+                <p class="maintext">{{ posts.title }}</p>
+                <p class = "litle-text">{{ posts.published_date}}</p>
+                <p><h3>{{ posts.cost }}</h3></p>
+            </div>
+        </div>
+            </a>
+    {% endfor %}
+    </div>
+
+    <center>
+        <div class="userinfo">
+        Мои обьявления
+        </div>
+    </center>
+
+    <div class="postview">
+        {% for posts in user_post%}
+            <a href="{{ posts.get_absolute_url }}">
+                <div class="postdetail">
+             <div>
+                <img src="{{ posts.image.url }}" alt="" height="195", width="250" >
+            </div>
+            <div>
+                <p class="maintext">{{ posts.title }}</p>
+                <p class = "litle-text">{{ posts.published_date}}</p>
+                <p><h3>{{ posts.cost }}</h3></p>
+            </div>
+        </div>
+            </a>
+    {% endfor %}
+    </div>
+
+</body>
+</html>
