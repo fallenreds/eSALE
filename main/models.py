@@ -66,17 +66,19 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    text = models.TextField(verbose_name="Текст", max_length=500)
-    created_date = models.DateField(verbose_name="Дата", auto_now_add=True)
+    text = models.TextField(verbose_name="Текст", max_length=300)
+    created_date = models.DateField(verbose_name="Дата", default=timezone.now, blank=True, null=True)
 
     author = models.ForeignKey(
         MyUser,
         verbose_name='Автор',
+        related_name='author',
         on_delete=models.CASCADE)
 
     profile = models.ForeignKey(
         MyUser,
         verbose_name='Профиль комметария',
+        related_name='profile',
         on_delete=models.CASCADE)
 
     class Meta:

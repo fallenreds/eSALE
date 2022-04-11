@@ -185,3 +185,21 @@ p{
     font-size: 12px;
 }
 
+
+
+a {
+    text-decoration:none;
+    color: black;
+}
+
+.favorite{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #0072c6;
+    color: #e7e7e7;
+}
+.nonfavorite{
+    background-color: #b60000;
+}

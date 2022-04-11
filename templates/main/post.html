@@ -25,14 +25,21 @@
             <p class="smalltext"><strong>Дата публикации:</strong> {{ post.published_date }}</p>
         </div>
         <div class="postinfo">
-            <p><strong>{{ user.first_name }}</strong></p>
-            <p><strong>{{ user.last_name }}</strong></p>
-            <p>{{ user.email }}</p>
-            <p class="smalltext"><strong>Зарегестрирован с </strong>{{ user.date_joined.date }}</p>
+            <a href="{% url 'profile' user.id %}">
+                <p><strong>{{ user.first_name }}</strong></p>
+                <p><strong>{{ user.last_name }}</strong></p>
+                <p>{{ user.email }}</p>
+                <p class="smalltext"><strong>Зарегестрирован с </strong>{{ user.date_joined.date }}</p>
+            </a>
+            <br>
             {% if flag%}
-                <p><a href="{% url 'favorite'  post.id  %}">Удалить из избранного</a></p>
+                <p><a class="nonfavorite favorite" href="{% url 'favorite'  post.id  %}">Удалить из избранного</a></p>
             {% else %}
-                <p><a href="{% url 'favorite'  post.id  %}">В избранное</a></p>
+                <p><a class="favorite" href="{% url 'favorite'  post.id  %}">В избранное</a></p>
+            {% endif %}
+            <br>
+            {% if post.author.id == request.user.id %}
+                <p><a class="nonfavorite favorite" href="{% url 'dell_post'  post.id  %}">Удалить обьявление</a></p>
             {% endif %}
         </div>
     </div>

@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, forms, AuthenticationForm
-from .models import Post, Category
+from .models import Post, Category, Comment
 
 
 class MyUserCreationForm(UserCreationForm):
@@ -42,8 +42,10 @@ class NewPostForm(forms.ModelForm):
         model = Post
         fields = ('title', 'text', 'image', 'cost', 'category','author','published_date')
 
-# class FavotiteForm(forms.ModelForm):
-#     favorite = forms.BooleanField(label='Избранное', widget=)
-#     class Meta():
-#         model = get_user_model()
-#         fields = ('favorite',)
+class CreateCommentForm(forms.ModelForm):
+    text = forms.CharField(label='Коментарий',
+                           widget=forms.Textarea(attrs={'placeholder': 'Напишите ваш коментарий о пользователе','class': "descrip", 'maxlength':'300'}))
+
+    class Meta:
+        model = Comment
+        fields = ('text',)

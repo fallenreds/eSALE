@@ -1,15 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.context_processors import request
 from django.views import View
 from django.contrib.auth import login, authenticate
-from .forms import MyUserCreationForm, MyAuthenticationForm, NewPostForm
+from .forms import *
 from .models import Post, Category, MyUser
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-
 
 
 @login_required
@@ -37,8 +36,6 @@ def home_view(request):
     else:
         post_list = Post.objects.all().order_by("-views")[:8]
         return render(request, 'main/home.html', {'post_list': post_list})
-
-
 
 
 class PostDetail(View):
@@ -99,12 +96,59 @@ class RegisterView(View):
 
 
 class ProfileView(LoginRequiredMixin, View):
-    def get(self, request):
-        favorite_post = Post.objects.filter(favorite=request.user.id)
-        user_post = Post.objects.filter(author_id=request.user.id)
+    def get(self, request, id):
+        comments = Comment.objects.filter(profile__id=id)
+        if request.user.id == id:
+            favorite_post = Post.objects.filter(favorite=request.user.id)
+            user_post = Post.objects.filter(author_id=request.user.id)
+            context = {
+                'favorite_post': favorite_post,
+                'user_post': user_post,
+                'comments': comments
+            }
+        else:
+            user = MyUser.objects.get(id=id)
+            user_post = Post.objects.filter(author_id=id)
+            form = CreateCommentForm()
+            context = {
+                'user_post': user_post,
+                'user': user,
+                'form': form,
+                'comments': comments
+            }
+        return render(request, 'main/profile.html', context)
 
-        return render(request, 'main/profile.html', {'favorite_post': favorite_post, 'user_post': user_post})
+    def post(self, request, id):
+        form = CreateCommentForm(request.POST)
+        print(form.errors)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.author = request.user
+            form.profile = MyUser.objects.get(id=id)
+            form.save()
+            return HttpResponseRedirect(request.META['HTTP_REFERER'])
+        else:
+            form = CreateCommentForm()
+            return render(request, request.META['HTTP_REFERER'], {'form': form})
 
+
+@login_required
+def delete_comment(request, id):
+    comment = Comment.objects.get(id=id)
+    if comment.author.id == request.user.id:
+        comment.delete()
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    else:
+        return redirect('home')
+
+@login_required
+def delete_post(request, id):
+    post = Post.objects.get(id=id)
+    if post.author.id == request.user.id:
+        post.delete()
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    else:
+        return redirect('home')
 
 class CreatePostView(LoginRequiredMixin, View):
     def get(self, request):
@@ -121,4 +165,3 @@ class CreatePostView(LoginRequiredMixin, View):
             form.save()
             return redirect('/')
         return HttpResponse('Братан, все фигня')
-

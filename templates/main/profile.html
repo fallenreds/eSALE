@@ -16,6 +16,7 @@
         <p>{{user.email}}</p>
         <p>{{user.date_joined}}</p>
     </div>
+     {% if request.user.id == user.id %}
     <center>
         <div class="userinfo">
         Избранное
@@ -38,12 +39,20 @@
             </a>
     {% endfor %}
     </div>
-
-    <center>
+     {% endif %}
+    {% if request.user.id == user.id %}
+        <center>
         <div class="userinfo">
-        Мои обьявления
+            Мои обьявления
         </div>
     </center>
+        {% else %}
+        <center>
+        <div class="userinfo">
+            Обьявления пользователя
+        </div>
+    </center>
+    {% endif %}
 
     <div class="postview">
         {% for posts in user_post%}
@@ -61,6 +70,30 @@
             </a>
     {% endfor %}
     </div>
+    <center>
+        <div class="userinfo">
+            Комментарии
+        </div>
+    </center>
+    <form method="post" action="{% url 'profile' user.id %}">
+        <center>
+            <p>{{ form.text }}</p>
+            <button class="accept" type="submit">Отправить</button>
+            {% csrf_token %}
+        </center>
+    </form>
+        {% for comment in comments %}
+            <div class="comment">
+                <p><h3>{{ comment.author.first_name }} {{ comment.author.last_name }}</h3></p>
+                <em><p>"{{ comment.text }}"</p></em>
+                <p><h5>
+                {{ comment.created_date }}
+                {% if comment.author.id == request.user.id %}
+                <a class="delete" href="{% url 'dell_comment' comment.id %}">Удалить</a>
+                {% endif %}
+                </h5></p>
+            </div>
+        {% endfor %}
 
 </body>
 </html>
