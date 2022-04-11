@@ -32,12 +32,18 @@ class MyAuthenticationForm(AuthenticationForm):
 
 class NewPostForm(forms.ModelForm):
     title = forms.CharField(label='Заголовок',
-                            widget=forms.TextInput(attrs={'placeholder': 'Заголовок','class':"inputarea"}))
+                            widget=forms.TextInput(attrs={'placeholder': 'Заголовок', 'class': "inputarea"}))
     text = forms.CharField(label='Описание',
-                           widget=forms.Textarea(attrs={'placeholder': 'Описание', 'class':"descrip",'maxlength':'300'}))
+                           widget=forms.Textarea(attrs={'placeholder': 'Описание', 'class': "descrip", 'maxlength':'300'}))
     cost = forms.FloatField(label='Цена',
-                            widget=forms.NumberInput(attrs={'placeholder': 'Цена', 'min':'1','class':"inputarea"}))
-    category = forms.ModelChoiceField(queryset=Category.objects.all(),widget=forms.Select(attrs={'class':"inputarea"}))
+                            widget=forms.NumberInput(attrs={'placeholder': 'Цена', 'min': '1', 'class': "inputarea"}))
+    category = forms.ModelChoiceField(queryset=Category.objects.all(),widget=forms.Select(attrs={'class': "inputarea"}))
     class Meta():
         model = Post
         fields = ('title', 'text', 'image', 'cost', 'category','author','published_date')
+
+# class FavotiteForm(forms.ModelForm):
+#     favorite = forms.BooleanField(label='Избранное', widget=)
+#     class Meta():
+#         model = get_user_model()
+#         fields = ('favorite',)

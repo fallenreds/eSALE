@@ -13,7 +13,7 @@
                             {% else %}
                             <a class="nav__link" href="{% url 'login' %}">Войти</a>
                             <a class="nav__link" href="{% url 'register' %}">Регестрация</a>
-                            <a class="nav__link" href="#">Подать обьявление</a>
+                            <a class="nav__link" href="{% url 'newpost' %}">Подать обьявление</a>
 
                         {% endif %}
                     </nav>

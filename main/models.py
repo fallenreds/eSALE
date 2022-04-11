@@ -63,3 +63,22 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return f'/post/{self.id}'
+
+
+class Comment(models.Model):
+    text = models.TextField(verbose_name="Текст", max_length=500)
+    created_date = models.DateField(verbose_name="Дата", auto_now_add=True)
+
+    author = models.ForeignKey(
+        MyUser,
+        verbose_name='Автор',
+        on_delete=models.CASCADE)
+
+    profile = models.ForeignKey(
+        MyUser,
+        verbose_name='Профиль комметария',
+        on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Коментрации'

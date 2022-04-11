@@ -14,10 +14,15 @@
 
     {#  Панель поиска #}
     {% search_block %}
-     <div class="popular_thing">
-         <h3>Популярные предложения:</h3>
-     </div>
-
+    {% if request.method == 'GET' %}
+         <div class="popular_thing">
+             <h3>Популярные предложения:</h3>
+         </div>
+    {% else %}
+        <div class="popular_thing">
+            <h3>Результаты поиска:</h3>
+         </div>
+    {% endif %}
     {#  Вывод постов #}
     <div class="postview">
         {% for posts in post_list%}

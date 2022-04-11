@@ -29,6 +29,11 @@
             <p><strong>{{ user.last_name }}</strong></p>
             <p>{{ user.email }}</p>
             <p class="smalltext"><strong>Зарегестрирован с </strong>{{ user.date_joined.date }}</p>
+            {% if flag%}
+                <p><a href="{% url 'favorite'  post.id  %}">Удалить из избранного</a></p>
+            {% else %}
+                <p><a href="{% url 'favorite'  post.id  %}">В избранное</a></p>
+            {% endif %}
         </div>
     </div>
 </body>

@@ -158,7 +158,7 @@ p{
 .postview{
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: left;
     color: black;
     font-family: sans-serif;
     font-size: 16px;
@@ -177,7 +177,8 @@ p{
     display:flex;
     flex-direction: column;
     margin-bottom: 50px;
-
+    margin-right: 18px;
+    margin-left: 18px;
 }
 
 .postdetail > div >.maintext{
