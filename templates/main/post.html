@@ -21,7 +21,7 @@
             <p><strong>{{ post.title }}</strong></p>
             <p><span>{{ post.text }}</span></p>
             <p><strong>{{ post.cost }} грн</strong></p>
-            <p class="smalltext"><strong>Просмотрено:</strong> {{ post.views }}</p>
+            <p class="smalltext"><strong>Просмотрено:</strong> {{ post.viewed.count }}</p>
             <p class="smalltext"><strong>Дата публикации:</strong> {{ post.published_date }}</p>
         </div>
         <div class="postinfo">

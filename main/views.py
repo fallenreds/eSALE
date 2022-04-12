@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.db.models import Count
 
 
 @login_required
@@ -20,11 +21,28 @@ def add_favorite(request, id):
         post.favorite.add(request.user)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
+@login_required
+def delete_comment(request, id):
+    comment = Comment.objects.get(id=id)
+    if comment.author.id == request.user.id:
+        comment.delete()
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    else:
+        return redirect('home')
+
+@login_required
+def delete_post(request, id):
+    post = Post.objects.get(id=id)
+    if post.author.id == request.user.id:
+        post.delete()
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    else:
+        return redirect('home')
 
 def home_view(request):
     if request.method == 'POST':
         print(request.POST)
-        post_list = Post.objects.all().order_by("-views").filter(title__icontains=request.POST['q'])
+        post_list = Post.objects.annotate(view_count=Count('viewed')).order_by('-view_count').filter(title__icontains=request.POST['q'])
         if request.POST['minpr'] != '':
             post_list = post_list.filter(cost__gte=request.POST['minpr'])
         if request.POST['maxpr'] != '':
@@ -34,13 +52,17 @@ def home_view(request):
 
         return render(request, 'main/home.html', {'post_list': post_list})
     else:
-        post_list = Post.objects.all().order_by("-views")[:8]
+        post_list = Post.objects.annotate(view_count=Count('viewed')).order_by('-view_count')[:8]
         return render(request, 'main/home.html', {'post_list': post_list})
 
 
 class PostDetail(View):
-    def get(self, request, slug):
-        post = Post.objects.get(id=slug)
+    def get(self, request, id):
+        post = Post.objects.get(id=id)
+        if request.user.is_authenticated:
+            if not post.viewed.filter(id=request.user.id).exists():
+                post.viewed.add(request.user.id)
+
         user = MyUser.objects.get(id=post.author_id)
         if post.favorite.filter(id=request.user.id).exists():
             flag = True
@@ -59,7 +81,10 @@ class PostDetail(View):
 
 class LoginView(View):
     def get(self, request):
-        return render(request, 'registration/login.html', {'form': MyAuthenticationForm()})
+        if request.user.is_authenticated:
+            return redirect('home')
+        else:
+            return render(request, 'registration/login.html', {'form': MyAuthenticationForm()})
 
     def post(self, request):
         form = MyAuthenticationForm(request, request.POST)
@@ -78,12 +103,14 @@ class LoginView(View):
 
 
 class RegisterView(View):
-
     def get(self, request):
-        form = {
-            'form': MyUserCreationForm()
-        }
-        return render(request, 'registration/register.html', form)
+        if request.user.is_authenticated:
+            return redirect('home')
+        else:
+            form = {
+                'form': MyUserCreationForm()
+            }
+            return render(request, 'registration/register.html', form)
 
     def post(self, request):
         form = MyUserCreationForm(request.POST)
@@ -132,23 +159,7 @@ class ProfileView(LoginRequiredMixin, View):
             return render(request, request.META['HTTP_REFERER'], {'form': form})
 
 
-@login_required
-def delete_comment(request, id):
-    comment = Comment.objects.get(id=id)
-    if comment.author.id == request.user.id:
-        comment.delete()
-        return HttpResponseRedirect(request.META['HTTP_REFERER'])
-    else:
-        return redirect('home')
 
-@login_required
-def delete_post(request, id):
-    post = Post.objects.get(id=id)
-    if post.author.id == request.user.id:
-        post.delete()
-        return HttpResponseRedirect(request.META['HTTP_REFERER'])
-    else:
-        return redirect('home')
 
 class CreatePostView(LoginRequiredMixin, View):
     def get(self, request):

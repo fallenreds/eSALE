@@ -75,6 +75,7 @@
             Комментарии
         </div>
     </center>
+    {% if user.id != request.user.id %}
     <form method="post" action="{% url 'profile' user.id %}">
         <center>
             <p>{{ form.text }}</p>
@@ -82,6 +83,7 @@
             {% csrf_token %}
         </center>
     </form>
+    {% endif %}
         {% for comment in comments %}
             <div class="comment">
                 <p><h3>{{ comment.author.first_name }} {{ comment.author.last_name }}</h3></p>

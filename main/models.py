@@ -16,7 +16,6 @@ class MyUser(AbstractUser):
 class Category(MPTTModel):
     """Модель категорий"""
     title = models.TextField('Название', max_length=50)
-    slug = models.SlugField(verbose_name="url", max_length=100)
     parent = TreeForeignKey(
         'self',
         verbose_name="Родительская категория",
@@ -40,7 +39,6 @@ class Post(models.Model):
     image = models.ImageField('Главная фотография', upload_to="main/", blank=True, null=True)
     cost = models.FloatField('Цена', null=False)
     published_date = models.DateTimeField('Дата публикации', default=timezone.now, blank=True, null=True)
-    views = models.PositiveIntegerField('Просмотрено', default=0)
 
     author = models.ForeignKey(
         MyUser,
@@ -53,6 +51,11 @@ class Post(models.Model):
         verbose_name='Категория',
         on_delete=models.CASCADE,
         null=True)
+    viewed = models.ManyToManyField(
+        MyUser,
+        verbose_name='Просмотрено',
+        blank="True",
+        related_name='viewed')
 
     def __str__(self):
         return self.title

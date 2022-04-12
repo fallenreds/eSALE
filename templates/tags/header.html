@@ -6,7 +6,7 @@
                         <a href="/"><img src="{% static 'img/LOGO.png' %}" alt=""></a>
                     </div>
                     <nav class="nav">
-                        {% if  user.is_authenticated %}
+                        {% if  request.user.is_authenticated %}
                             <a class="nav__link" href="{% url 'profile' request.user.id %}">Профиль</a>
                             <a class="nav__link" href="{% url 'logout' %}">Выйти</a>
                             <a class="nav__link" href="{% url 'newpost' %}">Подать обьявление</a>
