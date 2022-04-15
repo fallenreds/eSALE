@@ -15,6 +15,7 @@ from django.db.models import Count
 @login_required
 def add_favorite(request, id):
     post = Post.objects.get(id=id)
+    print(Post.objects.get(id=id).query)
     if post.favorite.filter(id=request.user.id).exists():
         post.favorite.remove(request.user)
     else:
@@ -176,3 +177,30 @@ class CreatePostView(LoginRequiredMixin, View):
             form.save()
             return redirect('/')
         return HttpResponse('Братан, все фигня')
+
+
+
+
+from django.shortcuts import render
+from django.db import connection
+from django.views import View
+from collections import namedtuple
+from .models import *
+
+# def dictfetchall(cursor):
+#     "Return all rows from a cursor as a dict"
+#     columns = [col[0] for col in cursor.description]
+#     return [
+#         dict(zip(columns, row))
+#         for row in cursor.fetchall()
+#     ]
+#
+# class HomeView(View):
+#     def get(self, request):
+#         # person = Person.objects.values('name','last_name','date_birth','position__title')
+#         # print(person.query)
+#         cursor = connection.cursor()
+#         cursor.execute("SELECT name, last_name, date_birth, main_position.title FROM main_person LEFT OUTER JOIN main_position ON (position_id = main_position.id)")
+#         person = dictfetchall(cursor)
+#         print(person)
+#         return render(request,'home.html',{'person':person})
