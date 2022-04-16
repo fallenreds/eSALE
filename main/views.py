@@ -114,6 +114,7 @@ class RegisterView(View):
             return render(request, 'registration/register.html', form)
 
     def post(self, request):
+        #Truble
         form = MyUserCreationForm(request.POST)
         print(request.POST)
         if form.is_valid():
