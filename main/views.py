@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.db.models import Count
 
-
+# првиет
 @login_required
 def add_favorite(request, id):
     post = Post.objects.get(id=id)
