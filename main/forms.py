@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, forms, AuthenticationForm
 
 from .category_interface import list_categories
-from .forms_interface import create_post
+from .forms_interface import create_post, create_comment
 from .models import Post, Category, Comment
 
 
@@ -60,19 +60,16 @@ class NewPostForm(forms.Form):
         widget=forms.NumberInput(attrs={"placeholder": "Цена", "min": "1", "class": "inputarea"}),
     )
     category = forms.ChoiceField(
+        widget=forms.Select(attrs={"class": "inputarea"}),
         choices=list_categories()
-        # queryset=None, widget=forms.Select(attrs={"class": "inputarea"})
     )
-
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields['category'].queryset = list_categories()
+    image = forms.ImageField()
 
     def save(self, author_id):
         create_post(self.cleaned_data, author_id=author_id)
 
 
-class CreateCommentForm(forms.ModelForm):
+class CreateCommentForm(forms.Form):
     text = forms.CharField(
         label="Коментарий",
         widget=forms.Textarea(
@@ -84,6 +81,9 @@ class CreateCommentForm(forms.ModelForm):
         ),
     )
 
-    class Meta:
-        model = Comment
-        fields = ("text",)
+    def save(self, author_id, profile_id):
+        create_comment(self.cleaned_data, author_id=author_id, profile_id=profile_id)
+
+    # class Meta:
+    #     model = Comment
+    #     fields = ("text",)

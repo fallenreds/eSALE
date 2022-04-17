@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.db.models import Count
-
+from .views_interface import delete_this_post
 
 @login_required
 def add_favorite(request, id):
@@ -35,12 +35,13 @@ def delete_comment(request, id):
 
 @login_required
 def delete_post(request, id):
-    post = Post.objects.get(id=id)
-    if post.author.id == request.user.id:
-        post.delete()
-        return HttpResponseRedirect(request.META["HTTP_REFERER"])
-    else:
-        return redirect("home")
+    delete_this_post(id, request.user.id)
+    # post = Post.objects.get(id=id)
+    # if post.author.id == request.user.id:
+    #     post.delete()
+    #     return redirect("home")
+    # else:
+    #     return redirect("home")
 
 
 def home_view(request):
@@ -144,10 +145,7 @@ class ProfileView(LoginRequiredMixin, View):
         form = CreateCommentForm(request.POST)
         print(form.errors)
         if form.is_valid():
-            form = form.save(commit=False)
-            form.author = request.user
-            form.profile = MyUser.objects.get(id=id)
-            form.save()
+            form.save(author_id=request.user.id, profile_id=id)
             return HttpResponseRedirect(request.META["HTTP_REFERER"])
         else:
             form = CreateCommentForm()
@@ -156,7 +154,6 @@ class ProfileView(LoginRequiredMixin, View):
 
 class CreatePostView(LoginRequiredMixin, View):
     def get(self, request):
-        x = 5
         form = {"form": NewPostForm()}
         return render(request, "main/newpost.html", form)
 
