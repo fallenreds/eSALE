@@ -10,7 +10,7 @@ class MyUser(AbstractUser):
         'Post',
         verbose_name='Избранное',
         blank="True",
-        related_name='favorite')
+        related_name='favorite',)
 
 
 class Category(MPTTModel):

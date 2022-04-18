@@ -15,7 +15,6 @@ from .views_interface import delete_this_post
 @login_required
 def add_favorite(request, id):
     post = Post.objects.get(id=id)
-    print(Post.objects.get(id=id).query)
     if post.favorite.filter(id=request.user.id).exists():
         post.favorite.remove(request.user)
     else:
@@ -35,13 +34,11 @@ def delete_comment(request, id):
 
 @login_required
 def delete_post(request, id):
-    delete_this_post(id, request.user.id)
-    # post = Post.objects.get(id=id)
-    # if post.author.id == request.user.id:
-    #     post.delete()
-    #     return redirect("home")
-    # else:
-    #     return redirect("home")
+    deliting = delete_this_post(id, request.user.id)
+    if deliting:
+        return redirect("home")
+    else:
+        return HttpResponse("Что-то пошло не так")
 
 
 def home_view(request):
