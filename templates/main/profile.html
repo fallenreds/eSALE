@@ -65,6 +65,17 @@
                 <p class="maintext">{{ posts.title }}</p>
                 <p class = "litle-text">{{ posts.published_date}}</p>
                 <p><h3>{{ posts.cost }}</h3></p>
+                {% if statue_visible %}
+                    {% if posts.status.id == 1 %}
+                        <div class="status status_checking">{{ posts.status }}</div>
+                        {% endif %}
+                    {% if posts.status.id == 2 %}
+                        <div class="status ">{{ posts.status }}</div>
+                        {% endif %}
+                    {% if posts.status.id == 3 %}
+                        <div class="status status_false">{{ posts.status }}</div>
+                        {% endif %}
+                {% endif %}
             </div>
         </div>
             </a>

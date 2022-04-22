@@ -31,6 +31,15 @@ class Category(MPTTModel):
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
+class Status(models.Model):
+    status = models.TextField(verbose_name="Статус обьявления", max_length=25)
+
+    def __str__(self):
+        return self.status
+
+    class Meta:
+        verbose_name = 'Cтатус'
+        verbose_name_plural = 'Статусы'
 
 class Post(models.Model):
     """Модель обьявлений"""
@@ -39,7 +48,14 @@ class Post(models.Model):
     image = models.ImageField('Главная фотография', upload_to="main/", blank=True, null=True)
     cost = models.FloatField('Цена', null=False)
     published_date = models.DateTimeField('Дата публикации', default=timezone.now, blank=True, null=True)
-
+    status = models.ForeignKey(
+        Status,
+        default=1,
+        verbose_name='Статус',
+        on_delete=models.SET_DEFAULT,
+        blank=False,
+        null=False
+    )
     author = models.ForeignKey(
         MyUser,
         verbose_name="Автор",

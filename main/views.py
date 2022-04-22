@@ -43,7 +43,7 @@ def delete_post(request, id):
 def home_view(request):
     if request.method == 'POST':
         print(request.POST)
-        post_list = Post.objects.annotate(view_count=Count('viewed')).order_by('-view_count').filter(title__icontains=request.POST['q'])
+        post_list = Post.objects.filter(status = 2).annotate(view_count=Count('viewed')).order_by('-view_count').filter(title__icontains=request.POST['q'])
         if request.POST['minpr'] != '':
             post_list = post_list.filter(cost__gte=request.POST['minpr'])
         if request.POST['maxpr'] != '':
@@ -53,7 +53,7 @@ def home_view(request):
 
         return render(request, 'main/home.html', {'post_list': post_list})
     else:
-        post_list = Post.objects.annotate(view_count=Count('viewed')).order_by('-view_count')[:8]
+        post_list = Post.objects.filter(status = 2).annotate(view_count=Count('viewed')).order_by('-view_count')[:8]
         return render(request, 'main/home.html', {'post_list': post_list})
 
 
@@ -128,12 +128,14 @@ class ProfileView(LoginRequiredMixin, View):
     def get(self, request, id):
         comments = Comment.objects.filter(profile__id=id)
         if request.user.id == id:
+            statue_visible = True
             favorite_post = Post.objects.filter(favorite=request.user.id)
             user_post = Post.objects.filter(author_id=request.user.id)
             context = {
                 'favorite_post': favorite_post,
                 'user_post': user_post,
-                'comments': comments
+                'comments': comments,
+                'statue_visible':statue_visible
             }
         else:
             user = MyUser.objects.get(id=id)
