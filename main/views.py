@@ -139,7 +139,7 @@ class ProfileView(LoginRequiredMixin, View):
             }
         else:
             user = MyUser.objects.get(id=id)
-            user_post = Post.objects.filter(author_id=id)
+            user_post = Post.objects.filter(author_id=id, status = 2)
             form = CreateCommentForm()
             context = {
                 'user_post': user_post,
